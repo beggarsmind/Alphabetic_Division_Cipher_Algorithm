@@ -1,0 +1,512 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 98%;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2,
+h3 {
+  color: #333;
+  font-family: 'Segoe UI';
+  font-size: 2.2rem;
+  margin-top: 10px;
+}
+
+label {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: sans-serif;
+  color: #4a148c;
+  display: block;
+  margin-bottom: 3px;
+  margin-left: 25px;
+  text-align: left;
+}
+
+textarea {
+  width: 95%;
+  height: 125px;
+  padding: 10px;
+  margin: 10px 0;
+  border: 2px solid #ccc; /* Increased border thickness */
+  border-radius: 5px;
+  resize: none;
+}
+
+#textInput {
+  color: #000000; /* Light gray color */
+  font-size: 22px; /* Adjust font size */
+  font-family: 'Segoe UI';
+}
+
+#textInput::placeholder {
+  color: #a9a9a9; /* Light gray color */
+  font-style: oblique;
+  font-size: 20px; /* Adjust font size */
+  font-family: 'Arial', sans-serif; /* Change font family */
+}
+
+button {
+  padding: 10px 40px;
+  font-size: 24px;
+  font-weight: bold;
+  border: 1px solid grey;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+button:hover {
+  background-color: #6977c9;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#encrypt,
+#decrypt {
+  padding: 10px 40px;
+  font-size: 24px;
+  font-weight: bold;
+  border: 1px solid grey;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 20px;
+}
+#encrypt:hover,
+#decrypt:hover {
+  background-color: rgb(
+    17,
+    111,
+    199
+  ); /* Change the background color on hover */
+  color: white; /* Make text white on hover */
+  transform: scale(1.05); /* Slightly enlarge the button */
+}
+
+#output {
+  color: #000000; /* Light gray color */
+  font-size: 22px; /* Adjust font size */
+  font-family: 'Segoe UI';
+}
+
+#output::placeholder {
+  color: #a9a9a9; /* Light gray color */
+  font-style: oblique;
+  font-size: 20px; /* Adjust font size */
+  font-family: 'Arial', sans-serif; /* Change font family */
+}
+
+/* copy button */
+.btn-copy {
+  padding: 10px 40px;
+  font-size: 24px;
+  font-weight: bold;
+  border: 1px solid grey;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  margin-top: -10px;
+  float: right;
+}
+
+.btn-copy i {
+  font-size: 18px; /* Icon size */
+}
+
+.btn-copy:hover {
+  background-color: #33a6d3; /* Slightly darker purple */
+  color: white;
+  transform: scale(1.05);
+}
+
+.btn-copy:active {
+  background-color: #9575cd; /* Deep purple on click */
+  transform: scale(0.95);
+}
+
+#download {
+  padding: 10px 40px;
+  font-size: 24px;
+  font-weight: bold;
+  border: 1px solid grey;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  margin-top: -10px;
+  margin-right: 10px;
+}
+#download i {
+  font-size: 20px; /* Icon size */
+  margin-right: 10px; /* Adds space between icon and text */
+}
+#download:hover {
+  color: white;
+  background-color: #18108d; /* Slightly darker purple */
+  transform: scale(1.05);
+}
+#generateQR {
+  padding: 10px 40px;
+  font-size: 24px;
+  font-weight: bold;
+  border: 1px solid grey;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  margin-top: -10px;
+  margin-right: -20%;
+}
+
+#generateQR i {
+  font-size: 20px; /* Icon size */
+  margin-right: 10px; /* Adds space between icon and text */
+}
+#generateQR:hover {
+  background-color: #a31cd8; /* Slightly darker purple */
+  transform: scale(1.05);
+  color: white;
+}
+/* QR Code Viewer */
+#qrcode {
+  margin-top: 20px;
+  width: 20% auto;
+  height: auto;
+  padding: 20px;
+  border-radius: 10px;
+  display: inline-block;
+  background-color: #f9f9f9;
+  cursor: pointer; /* Indicates it's clickable */
+}
+
+/* Popup Background (Initially Hidden) */
+.popup {
+  display: none; /* Hides popup by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Popup Content (Initially Hidden) */
+.popup-content {
+  display: none; /* Hidden content */
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+}
+
+/* Style the container */
+#savedMessages {
+  display: grid;
+  grid-template-columns: repeat(3, 2fr); /* 10 items per row */
+  gap: 5px; /* Space between items */
+  list-style-type: none; /* Remove default list styling */
+  padding: 0;
+  margin-top: 10px;
+}
+
+/* Style each message item */
+#savedMessages li {
+  background-color: rgb(202, 198, 198);
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.info {
+  font-size: 15px;
+  color: #666;
+}
+
+footer {
+  text-align: center;
+  color: black;
+  font-size: 20px;
+  margin-top: 20px;
+  margin-left: -20px;
+}
+footer a {
+  color: blue; /* Default link color */
+  text-decoration: none; /* Removes underline */
+  font-size: 16px;
+}
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  /* Adjust container width */
+  .container {
+    padding: 15px;
+    width: 100%;
+  }
+
+  /* Adjust text sizes */
+  h2,
+  h3 {
+    font-size: 1.8rem;
+  }
+
+  label {
+    font-size: 18px;
+  }
+
+  textarea,
+  #textInput,
+  #output {
+    font-size: 18px;
+  }
+
+  button,
+  #encrypt,
+  #decrypt,
+  .btn-copy,
+  #download,
+  #generateQR {
+    font-size: 20px;
+    padding: 8px 30px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #qrcode {
+    width: 40%;
+    margin-top: 15px;
+  }
+
+  #savedMessages {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 98%;
+    margin-top: -10px;
+    margin-left: -14px;
+  }
+  /* Adjust container and text sizes for very small screens */
+
+  h2,
+  h3 {
+    font-size: 1.5rem; /* Adjusted font size */
+    color: #333; /* Text color */
+    font-family: 'Roboto', sans-serif; /* Updated font family */
+    margin-top: 10px;
+  }
+
+  label {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: monospace;
+    color: #4a148c;
+    display: block;
+    margin-bottom: -5px;
+    margin-left: -5px;
+    text-align: left;
+  }
+
+  textarea,
+  #textInput,
+  #output {
+    font-size: 18px;
+    height: 125px;
+    width: 97%;
+    margin: 10px 0;
+    margin-left: -5px;
+    border: 2px solid #ccc; /* Increased border thickness */
+    border-radius: 4px;
+    resize: none;
+  }
+  #textInput::placeholder {
+    color: #a9a9a9; /* Light gray color */
+    font-style: oblique;
+    font-size: 20px; /* Adjust font size */
+    font-family: 'Arial', sans-serif; /* Change font family */
+  }
+  #encrypt,
+  #decrypt {
+    padding: 6px 12px;
+    font-size: 22px;
+    font-weight: bold;
+    border: 1px solid grey;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s ease;
+    align-items: center;
+    margin-right: 5px;
+    margin-bottom: 10px;
+  }
+  #encrypt:hover,
+  #decrypt:hover {
+    background-color: rgb(
+      17,
+      111,
+      199
+    ); /* Change the background color on hover */
+    color: white; /* Make text white on hover */
+    transform: scale(1.05); /* Slightly enlarge the button */
+  }
+  /* copy button */
+  .btn-copy {
+    padding: 6px 25px;
+    font-size: 22px;
+    font-weight: bold;
+    border: 1px solid grey;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    margin-top: -10px;
+    margin-right: -8px;
+    float: right;
+  }
+
+  .btn-copy i {
+    font-size: 18px; /* Icon size */
+  }
+
+  .btn-copy:hover {
+    background-color: #33a6d3; /* Slightly darker purple */
+    color: white;
+    transform: scale(1);
+  }
+
+  #download {
+    padding: 10px 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border: 1px solid grey;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    margin-top: -10px;
+    margin-left: -5px;
+    margin-right: 5px;
+  }
+  #download i {
+    font-size: 20px; /* Icon size */
+    margin-right: 10px; /* Adds space between icon and text */
+  }
+  #download:hover {
+    color: white;
+    background-color: #18108d; /* Slightly darker purple */
+    transform: scale(1);
+  }
+  #generateQR {
+    padding: 6px 6px;
+    font-weight: bold;
+    border: 1px solid grey;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s ease;
+    display: flex; /* Ensures flexbox alignment */
+    align-items: center; /* Centers vertically */
+    justify-content: center; /* Centers text horizontally */
+    text-align: center;
+    margin-top: -5px;
+    margin-left: -4px;
+    margin-right: -126px;
+  }
+
+  #generateQR i {
+    font-size: 20px; /* Icon size */
+    margin-right: 10px; /* Space between icon and text */
+  }
+
+  #generateQR:hover {
+    background-color: #a31cd8; /* Slightly darker purple */
+    transform: scale(1);
+    color: white;
+  }
+
+  #qrcode {
+    margin-top: 20px;
+    margin-left: -6px;
+    width: 90%;
+    height: auto;
+    padding: 20px;
+    border-radius: 10px;
+    display: inline-block;
+    background-color: #f9f9f9;
+    cursor: pointer;
+
+    transition: mmax-height 0.5s;
+  }
+
+  #savedMessages {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+    gap: 5px; /* Space between items */
+    list-style-type: none; /* Remove default list styling */
+    padding: 0;
+    margin-left: -8px;
+    margin-top: 10px;
+  }
+
+  /* Style each message item */
+  #savedMessages li {
+    background-color: rgb(202, 198, 198);
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px; /* Increased border-radius for better UI */
+    font-size: 14px;
+    font-weight: 600;
+    word-wrap: break-word; /* Ensures text does not overflow */
+  }
+  .info {
+    font-size: 14px;
+    color: #666;
+    font-weight: bold;
+    margin-bottom: -3px;
+  }
+  footer {
+    text-align: center;
+    color: black;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-left: -10px;
+  }
+  footer a {
+    color: blue; /* Default link color */
+    text-decoration: none; /* Removes underline */
+    font-size: 16px;
+  }
+}

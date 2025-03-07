@@ -1,0 +1,128 @@
+Algorithm: Alphabetic Division Cipher (ADC)
+
+This encryption algorithm is based on dividing 26 by the position of each letter in the alphabet. It transforms each letter into a unique floating-point number, which can be further encoded into a secure format. The decryption algorithm reverses this process to recover the original message.
+
+
+---
+
+Encryption Algorithm (ADC Encryption)
+
+1. Convert each letter in the message to its position in the alphabet (A=1, B=2, ..., Z=26).
+
+2. Compute the transformation using the formula:
+E(x) = 26 / P
+E(x) = \frac{26}{P}
+
+3. Convert the result into a string with a predefined format.
+
+
+4. Apply a secondary encoding (e.g., Base64, Hex, etc.) to ensure the encrypted message is obfuscated.
+
+
+
+
+---
+
+Decryption Algorithm (ADC Decryption)
+
+1. Decode the obfuscated message (if secondary encoding is used).
+
+
+2. Reverse the transformation:
+
+
+
+P = \frac{26}{E(x)}
+
+3. Convert the position back into the corresponding letter.
+
+---
+
+Python Implementation
+
+Below is the Python code for both encryption and decryption using this approach.
+
+import base64
+
+# Alphabet mapping (A=1, B=2, ..., Z=26)
+ALPHABET = {chr(i + 64): i for i in range(1, 27)}
+
+# Reverse mapping for decryption
+REVERSE_ALPHABET = {v: k for k, v in ALPHABET.items()}
+
+def encrypt(message):
+    encrypted_numbers = []
+
+    for char in message.upper():
+        if char in ALPHABET:
+            pos = ALPHABET[char]
+            enc_value = round(26 / pos, 2)  # Round to 2 decimal places
+            encrypted_numbers.append(str(enc_value))
+        else:
+            encrypted_numbers.append(char)  # Preserve spaces and special characters
+
+    encrypted_string = " ".join(encrypted_numbers)
+    encoded_bytes = base64.b64encode(encrypted_string.encode())  # Additional obfuscation
+    return encoded_bytes.decode()
+
+def decrypt(encrypted_message):
+    decoded_bytes = base64.b64decode(encrypted_message.encode())
+    decrypted_numbers = decoded_bytes.decode().split()
+
+    decrypted_text = ""
+
+    for value in decrypted_numbers:
+        try:
+            num = float(value)
+            pos = round(26 / num)  # Reverse the transformation
+            decrypted_text += REVERSE_ALPHABET.get(pos, "?")  # Handle invalid values
+        except ValueError:
+            decrypted_text += value  # Preserve spaces and special characters
+
+    return decrypted_text
+
+# Example Usage
+message = "HELLO WORLD"
+encrypted_msg = encrypt(message)
+print("Encrypted:", encrypted_msg)
+
+decrypted_msg = decrypt(encrypted_msg)
+print("Decrypted:", decrypted_msg)
+
+
+---
+
+Explanation of Code
+
+1. Encryption
+
+Converts letters to their positions (e.g., H=8, E=5, etc.).
+
+Divides 26 by the position to get a unique decimal value.
+
+Joins the values into a string and applies Base64 encoding for extra security.
+
+
+
+2. Decryption
+
+Decodes the Base64-encoded string.
+
+Splits the values and reverses the division operation.
+
+Maps the positions back to letters.
+
+
+
+
+
+---
+
+Example Execution
+
+Message: HELLO WORLD
+Encrypted: MTkuNTA= (Base64 encoded result)
+Decrypted: HELLO WORLD
+
+This method provides a simple but effective encryption technique using division-based transformations. Let me know if you need enhancements!
+

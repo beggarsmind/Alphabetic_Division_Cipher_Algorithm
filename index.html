@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Text Encryption App using the Alphabetic Division Cipher (ADC) algorithm for text and number encryption and decryption. Secure your messages easily." />
+    <meta name="keywords" content="text encryption, cipher, encryption app, text decryption, secure messages, encryption algorithm, QR code, download text file, copy to clipboard" />
+    <meta name="author" content="Ranjithkumar.R" />
+    <title>Text Encryption App</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <script src="qrcode.min.js"></script>
+
+    <!-- QR Code Library -->
+  </head>
+  <body>
+    <div class="container">
+      <h2>Alphabetic Division Cipher (ADC) Algorithm :: Text & Number</h2>
+
+      <label for="textInput">Enter Text:</label>
+      <textarea
+        id="textInput"
+        placeholder="Type your message here to Encrypt & Decrypt..."
+      ></textarea>
+
+      <button onclick="encryptText()" id="encrypt">🔐 Encrypt</button>
+      <button onclick="decryptText()" id="decrypt">🔓 Decrypt</button>
+
+      <label for="output">Result:</label>
+      <textarea id="output" placeholder="Output Shows Here..."></textarea>
+      <button onclick="copyToClipboard()" class="btn-copy">
+        <i class="fas fa-copy"></i>&nbsp;Copy
+      </button>
+
+      <div class="buttons">
+        <button onclick="downloadText()" id="download">
+          <i class="fa-solid fa-download"></i>&nbsp;Download Txt File
+        </button>
+        <button onclick="generateQRCode()" id="generateQR">
+          <i class="fa-solid fa-qrcode"></i>&nbsp;Generate QR
+        </button>
+      </div>
+
+      <!-- <div id="qrcode"></div> -->
+      <!-- Main QR Code Viewer -->
+      <div id="qrcode" onclick="showPopup()">
+        <!-- The QR code will be generated here -->
+      </div>
+
+      <!-- Popup Container (Initially Hidden) -->
+      <div id="qrPopup" class="popup">
+        <div class="popup-content">
+          <span class="close" onclick="closePopup()" placeholder="Output Shows Here..."></span>>&times;</span>
+          <div id="popupQRCode"></div>
+          <!-- QR Code inside the popup -->
+        </div>
+      </div>
+
+      <h3>Saved Messages</h3>
+      <ul id="savedMessages"></ul>
+
+      <p class="info">Encryption is key-based. Keep your key safe!</p>
+    </div>
+    <footer class="footer">
+      Designed By Ranjithkumar.R<a href="https://github.com/beggarsmind" rel="noopener" target="_blank"> @beggarsmind</a>
+    </footer>
+  </div>
+
+    <script src="script.js"></script>
+    <script src="Download_Text.js"></script>
+    <script src="Copy_Text.js"></script>
+    <script src="QRpopup.js"></script>
+  </body>
+</html>
